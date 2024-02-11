@@ -11,6 +11,7 @@ from data.recipe_data import RECIPES
 BASE_PATH = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(BASE_PATH / "templates"))
 
+#UpBRkTu@RGc4BdP
 
 app = FastAPI(
     title="Recipe API", openapi_url="/openapi.json"
