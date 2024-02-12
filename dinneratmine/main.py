@@ -4,8 +4,8 @@ from fastapi.templating import Jinja2Templates
 from typing import Optional, Any
 from pathlib import Path
 
-from schemas.recipe import RecipeSearchResults, Recipe, RecipeCreate
-from data.recipe_data import RECIPES
+from dinneratmine.schemas.recipe import RecipeSearchResults, Recipe, RecipeCreate
+from dinneratmine.data.recipe_data import RECIPES
 
 
 BASE_PATH = Path(__file__).resolve().parent
