@@ -1,26 +1,13 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float
-from sqlalchemy.orm import declarative_base
-from heliumwebapp.data.DbContext import engine
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
-Base = declarative_base()
+from dinneratmine.data.base_class import Base
 
 
-class Magnet(Base):
-    __tablename__ = "CooldownApp_CLMCLoad"
-
-    id = Column(Integer, primary_key=True)
-    magnet_type = Column(String) #[MagnetType]
-    cryostat_number = Column(Integer) #[CryoNo]
-    bay_number = Column(String) #[Bay]
-    warm_weight = Column(Float) #[WarmWeight]
-    rs_magnet = Column(Boolean, default=False) #[RSMagnet]
-    n2_fill = Column(Boolean, default=False) #[N2Fill]
-    datetime_load = Column(DateTime) #[DateTimeLoad]
-    datetime_unload = Column(DateTime) #[DateTimeUnload]
-    mac_address = Column(String) #[MAC]
-    clmc = Column(Boolean, default=None) #[CLMC]
-    load_user = Column(String) #[LoadUser]
-    unload_user = Column(String) #[UnoadUser]
-    
-    
-Base.metadata.create_all(engine)
+class Recipe(Base):  # 1
+    id = Column(Integer, primary_key=True, index=True)  # 2
+    label = Column(String(256), nullable=False)
+    url = Column(String(256), index=True, nullable=True)
+    source = Column(String(256), nullable=True)
+    submitter_id = Column(String(10), ForeignKey("user.id"), nullable=True)  # 3
+    submitter = relationship("User", back_populates="recipes")  # 4
