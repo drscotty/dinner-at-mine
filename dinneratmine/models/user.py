@@ -11,6 +11,6 @@ class User(Base):
     recipes = relationship(
         "Recipe",
         cascade="all,delete-orphan",
-        back_populates="submitter",
+        back_populates="user",
         uselist=True,
     )
