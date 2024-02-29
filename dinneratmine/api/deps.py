@@ -1,6 +1,6 @@
 from typing import Generator
 
-from dinneratmine.data.session import SessionLocal
+from dinneratmine.db.session import SessionLocal
 
 
 def get_db() -> Generator:

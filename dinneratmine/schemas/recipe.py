@@ -12,7 +12,7 @@ class RecipeCreate(RecipeBase):
     label: str
     source: str
     url: HttpUrl
-    user_id: int
+    submitter_id: int
 
 
 class RecipeUpdate(RecipeBase):
@@ -22,7 +22,7 @@ class RecipeUpdate(RecipeBase):
 # Properties shared by models stored in DB
 class RecipeInDBBase(RecipeBase):
     id: int
-    user_id: int
+    submitter_id: int
 
     class Config:
         orm_mode = True

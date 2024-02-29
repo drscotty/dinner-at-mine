@@ -1,8 +1,8 @@
 import logging
 
-from dinneratmine.data.base import Base
-from dinneratmine.data.init_db import init_db
-from dinneratmine.data.session import SessionLocal
+from dinneratmine.db.base import Base
+from dinneratmine.db.init_db import init_db
+from dinneratmine.db.session import SessionLocal
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -2,10 +2,33 @@ import logging
 from sqlalchemy.orm import Session
 
 from dinneratmine import schemas
-from dinneratmine.data import crud, base  # noqa: F401
-from dinneratmine.data.recipe_data import RECIPES
+from dinneratmine.db import base
+from dinneratmine import crud
 
 logger = logging.getLogger(__name__)
+
+
+RECIPES = [
+    {
+        "id": 1,
+        "label": "Chicken Vesuvio",
+        "source": "Serious Eats",
+        "url": "http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html",
+    },
+    {
+        "id": 2,
+        "label": "Chicken Paprikash",
+        "source": "No Recipes",
+        "url": "http://norecipes.com/recipe/chicken-paprikash/",
+    },
+    {
+        "id": 3,
+        "label": "Cauliflower and Tofu Curry Recipe",
+        "source": "Serious Eats",
+        "url": "http://www.seriouseats.com/recipes/2011/02/cauliflower-and-tofu-curry-recipe.html",
+    },
+]
+
 
 FIRST_SUPERUSER = "admin@recipeapi.com"
 
@@ -22,8 +45,9 @@ def init_db(db: Session) -> None:
     if FIRST_SUPERUSER:
         user = crud.user.get_by_email(db, email=FIRST_SUPERUSER)
         if not user:
-            user_in = schemas.UserCreate(
-                full_name="Initial Super User",
+            user_in = schemas.user.UserCreate(
+                first_name="Initial Super User",
+                surname="",
                 email=FIRST_SUPERUSER,
                 is_superuser=True,
             )
@@ -35,7 +59,7 @@ def init_db(db: Session) -> None:
             )
         if not user.recipes:
             for recipe in RECIPES:
-                recipe_in = schemas.RecipeCreate(
+                recipe_in = schemas.recipe.RecipeCreate(
                     label=recipe["label"],
                     source=recipe["source"],
                     url=recipe["url"],

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
-from dinneratmine.data.base_class import Base
+from dinneratmine.db.base_class import Base
 
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
@@ -11,6 +11,6 @@ class User(Base):
     recipes = relationship(
         "Recipe",
         cascade="all,delete-orphan",
-        back_populates="user",
+        back_populates="submitter",
         uselist=True,
     )

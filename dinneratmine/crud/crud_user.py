@@ -2,7 +2,7 @@ from typing import Any, Dict, Optional, Union
 
 from sqlalchemy.orm import Session
 
-from dinneratmine.data.crud.base import CRUDBase
+from dinneratmine.crud.base import CRUDBase
 from dinneratmine.models.user import User
 from dinneratmine.schemas.user import UserCreate, UserUpdate
 
