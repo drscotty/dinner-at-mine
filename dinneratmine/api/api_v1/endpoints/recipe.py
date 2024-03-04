@@ -62,6 +62,7 @@ def create_recipe(
 
     return recipe
 
+
 async def get_reddit_top_async(subreddit: str) -> list:
     async with httpx.AsyncClient() as client:
         response = await client.get(

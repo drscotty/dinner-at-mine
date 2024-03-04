@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
+
 from dinneratmine.db.base_class import Base
+
 
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
@@ -14,3 +16,6 @@ class User(Base):
         back_populates="submitter",
         uselist=True,
     )
+    
+    hashed_password = Column(String, nullable=False)
+    
