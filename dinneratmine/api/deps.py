@@ -9,6 +9,8 @@ from dinneratmine.core.auth import oauth2_scheme
 from dinneratmine.core.config import settings
 from dinneratmine.db.session import SessionLocal
 from dinneratmine.models.user import User
+from dinneratmine.clients.reddit import RedditClient
+from dinneratmine import crud
 
 
 class TokenData(BaseModel):
@@ -24,9 +26,12 @@ def get_db() -> Generator:
         db.close()
 
 
+def get_reddit_client() -> RedditClient:
+    return RedditClient()
+
+
 async def get_current_user(
-    db: Session = Depends(get_db), 
-    token: str = Depends(oauth2_scheme)
+    db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)
 ) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -51,3 +56,13 @@ async def get_current_user(
     if user is None:
         raise credentials_exception
     return user
+
+
+def get_current_active_superuser(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    if not crud.user.is_superuser(current_user):
+        raise HTTPException(
+            status_code=400, detail="The user doesn't have enough privileges"
+        )
+    return current_user

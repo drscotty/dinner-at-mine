@@ -1,4 +1,5 @@
 from pydantic import BaseModel, HttpUrl
+
 from typing import Sequence
 
 
@@ -16,6 +17,11 @@ class RecipeCreate(RecipeBase):
 
 
 class RecipeUpdate(RecipeBase):
+    id: int
+
+
+class RecipeUpdateRestricted(BaseModel):
+    id: int
     label: str
 
 
